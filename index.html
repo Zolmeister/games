@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Z Games</title>
+<style type="text/css">
+<!--
+.link {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+}
+-->
+</style>
+<script>
+var canvas;
+var ctx;
+H1=new Array(0,0,0);
+H2=new Array(0,0,0,0,0,0,0,0,0);
+M1=new Array(0,0,0,0,0,0);
+M2=new Array(0,0,0,0,0,0,0,0,0);
+mup=true;
+function start(){
+canvas=document.getElementById("cv");
+ctx=canvas.getContext('2d');
+clock();
+var a = self.setInterval('clock();',5000);
+}
+function randOrd(){
+return (Math.round(Math.random())-.5);
+}
+function clock(){
+d=new Date();
+h1=Math.floor(d.getHours()/10);
+h2=d.getHours()%10;
+m1=Math.floor(d.getMinutes()/10);
+m2=d.getMinutes()%10;
+draw(h1,h2,m1,m2);
+resetVars();
+}
+function resetVars(){
+H1=new Array(0,0,0);
+H2=new Array(0,0,0,0,0,0,0,0,0);
+M1=new Array(0,0,0,0,0,0);
+M2=new Array(0,0,0,0,0,0,0,0,0);
+}
+function draw(h1,h2,m1,m2){
+	function sorts(){
+		for(i=0;i<h1;i++){
+		H1[i]=1;
+		}
+		H1.sort(randOrd);
+		for(i=0;i<h2;i++){
+		H2[i]=1;
+		}
+		H2.sort(randOrd);
+		for(i=0;i<m1;i++){
+		M1[i]=1;
+		}
+		M1.sort(randOrd);
+		for(i=0;i<m2;i++){
+		M2[i]=1;
+		}
+		M2.sort(randOrd);
+	}
+sorts();
+HMs();
+
+}
+function HMs(){
+canvas.width=canvas.width;
+		ctx.shadowOffsetX=3;
+		ctx.shadowOffsetY=3;
+		ctx.shadowBlur=5;
+		ctx.shadowColor='#909090';
+	for(i=0;i<H1.length;i++){
+		ctx.fillStyle='#FFFFFF';
+		if (H1[i]==1) {
+		ctx.fillStyle='#00FF00';
+		ctx.fillRect(0,i*30,25,25);
+		continue;
+		}
+		ctx.clearRect(0,i*30,25,25);
+	}
+	z=0;
+	x=0;
+	for(i=0;i<H2.length;i++){
+	if(z==3) {
+		z-=3;
+		x++;
+		}
+		ctx.fillStyle='#1FA700';
+		ctx.clearRect(50+x*30,z*30,25,25);
+		if (H2[i]==1) ctx.fillRect(50+x*30,z*30,25,25);
+		
+		
+		if(H2[i]==0) {
+	//ctx.clearRect(50+x*30,z*30,25,25);
+	}
+		z++;
+
+	}
+	z=0;
+	x=0;
+	for(i=0;i<M1.length;i++){
+	if(z==3) {
+		z-=3;
+		x++;
+		}
+		ctx.clearRect(160+x*30,z*30,25,25);
+		ctx.fillStyle='#157000'
+		if (M1[i]==1) ctx.fillRect(160+x*30,z*30,25,25);
+	if(M1[i]==0) {
+	//ctx.clearRect(160+x*30,z*30,25,25);
+	}
+	z++;
+	}
+
+	z=0;
+	x=0;
+	for(i=0;i<M2.length;i++){
+	if(z==3) {
+		z-=3;
+		x++;
+		}
+	ctx.clearRect(240+x*30,z*30,25,25);
+	ctx.fillStyle='#000000'
+		if (M2[i]==1) ctx.fillRect(240+x*30,z*30,25,25);
+		
+		if(M2[i]==0) {
+	//ctx.clearRect(240+x*30,z*30,25,25);
+	}
+	z++;
+	}
+}
+function down(){
+
+mup=false;
+}
+function up(){
+mup=true;
+}
+var oldX;
+var oldY;
+var refX=350;
+var refY=250;
+document.onmousemove=function(e){
+	if(mup==false){
+	var e=window.event || e
+	mouseX=e.pageX;
+	mouseY=e.pageY;
+	cv=document.getElementById("cv").style;
+	cv.top=mouseY-oldY+"px";
+	cv.left=mouseX-oldX+"px";
+	}
+}
+function setM(){
+var e=window.event || e
+	oldX=e.pageX-refX;
+	oldY=e.pageY-refY;
+}
+function resetM(){
+cv=document.getElementById("cv");
+	refX=cv.offsetLeft;
+	refY=cv.offsetTop;
+	oldX=0;
+	oldY=0;
+}
+
+</script>
+<script>
+var a=new Array();
+var b=new Array();
+function sizes(x){
+a[x] = self.setInterval("size("+x+")",50);
+}
+function size(x){
+document.getElementById("link"+x).style.fontSize=parseInt(document.getElementById("link"+x).style.fontSize)+1+"px";
+}
+function sizes2(x){
+a[x]=window.clearInterval(a[x]);
+b[x] = self.setInterval("sizen("+x+")",50);
+}
+function sizen(x){
+if(parseInt(document.getElementById("link"+x).style.fontSize)>18){
+document.getElementById("link"+x).style.fontSize=parseInt(document.getElementById("link"+x).style.fontSize)-1+"px";
+}
+else b[x]=window.clearInterval(b[x]);
+}
+var links=new Array("http://avabranch.zolmeister.com","http://Zoggle.zolmeister.com","tuxman/", "/twotowers(miniv2).html","pong.html","snake/tinySnake","AmericaMan/","platypus/","snake/","tron/","tron2/");
+var names=new Array("Avabranch (2012)", "Zoggle (2012)","Tuxman (2012)","Two Towers (1008 bytes) (2012)","Pong (451 bytes) (2012)","Snake (686 bytes) (2012)","America Man (2011)","Platypus (2010)","Regular Snake (2010)","Tron - 2 Player (2010)","Tron With AI (2010)");
+function setup(){
+div=document.getElementById("games");
+for (i=0;i<links.length;i++){
+div.innerHTML+='<a href="'+links[i]+'" style="text-decoration:none;"><span class="link" id="link'+i+'" onmouseover="b['+i+']=window.clearInterval(b['+i+']);sizes('+i+');" onmouseout="sizes2('+i+');">'+names[i]+'</span></a><p>';
+document.getElementById("link"+i).style.fontSize=18+"px";
+}
+}
+</script>
+<style type="text/css">
+<!--
+#cv {
+	position: absolute;
+	left: 350px;
+	top: 250px;
+}
+-->
+</style>
+</head>
+
+<body onload="setup();start();">
+<h1>Zolmeister Games</h1><p></p><p></p>
+Here are all the Javascript Games I've made so far:<p></p>
+<div id="games"></div>
+<a href="license">MIT Licence</a>
+<canvas id="cv" width=400 height=100 onmousedown="setM();down();" onmouseup="up();resetM();">
+</canvas>
+</body>
+</html>

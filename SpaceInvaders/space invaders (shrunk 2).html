@@ -1,0 +1,61 @@
+<canvas id=r width=900 height=600>
+<script>
+a=450
+b=550
+c=[]
+d=1
+f=g=h=m=l=n=0
+s=String.fromCharCode
+j=r.getContext("2d")
+A=3232
+function p(){
+r.width=900
+j.font='30px sans'
+j.fillStyle='#0D0'
+	n-=10
+	a+=h
+	n<1?m=1:1
+	k=0
+	for(i=c.length-1;i>=0;i--){
+		o = c[i]
+		o.x+=f
+		o.y+=g
+		
+		j.fillText(s(8918,8919), o.x, o.y)
+		
+		if(o.y>b){alert("game over");return history.go(0)}
+		
+		o.x<0 || o.x+50>900?k=1:1
+		
+		o.x+=d
+		
+		if (!m && !(n + 30 < o.y
+     || n >o.y + 30
+     || l + 20 < o.x
+     || l > o.x + 50))c.splice(i,1),m=1
+     
+	}
+	f=g=0
+	if(k)d*=-1,f=d*2,g=20
+	if(c.length<1)d*=d,d++,q()
+	!m ? j.fillText(s(1769), l, n):1
+	j.fillText(s(A,111,A),a,b)
+}
+function q(){
+	x=10
+	y=60
+	for(i =1;i<41;i++){
+		c.push({x:x,y:y})
+		x+=75
+		if(i%10<1)x=10,y+=40
+	}
+}
+q()
+setInterval(p,20)
+onkeydown=function(e){
+	e.which!=32?h=(e.which-38)*5:m?(m=false,l=a+20,n=b):1
+}
+onkeyup=function(e){
+e.which!=32?h=0:1
+}
+</script>

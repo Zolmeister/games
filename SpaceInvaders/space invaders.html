@@ -1,0 +1,112 @@
+<canvas id=canvas_id style="background-color:black" width=900 height=600></canvas>
+<script>
+canvWidth=900
+canvHeight=600
+player={x:450, y:550, w: 30, h:30}
+dir=0
+enemies=[]
+level=1
+bullet={dead: true, x:0, y:0, h: 2, w:2}
+canvas = canvas_id
+ctx= canvas.getContext("2d")
+ctx.font='bolder 30px sans'
+ctx.fillStyle='green'
+//draw
+function draw(){
+	physics()
+	//clear screen
+	ctx.clearRect(0,0,1000,1000)
+	//draw player
+	ctx.fillText(String.fromCharCode(3232,111,3232),player.x,player.y)
+	//draw enemies
+	for(var i in enemies){
+		var enemie = enemies[i]
+		ctx.fillText(String.fromCharCode(8918,8919), enemie.x, enemie.y)
+		//ctx.fillRect(enemie.x, enemie.y,enemie.w,enemie.h)
+	}
+	//draw bullet
+	if(!bullet.dead)
+		ctx.fillText(String.fromCharCode(1769), bullet.x, bullet.y)
+		//ctx.fillRect(bullet.x,bullet.y,2,2)
+}
+function physics(){
+	bullet.y-=10
+	player.x+=dir
+	if(bullet.y<1)
+		bullet.dead=true
+	var flip=false
+	for(var i=enemies.length-1;i>=0;i--){
+		var enemie = enemies[i]
+		if(enemie.y>player.y){
+			console.log("game over")
+			//alert("game over")
+			//location.reload()
+			//history.go(0)
+		}
+		if(enemie.x<0 || enemie.x+enemie.w>canvWidth){
+			flip=true
+		}
+		enemie.x+=enemie.dir
+		//collision bullet code
+		if (!bullet.dead && !(bullet.y + bullet.h < enemie.y
+     || bullet.y >enemie.y + enemie.h
+     || bullet.x + bullet.w < enemie.x
+     || bullet.x > enemie.x + enemie.w)) {
+     	enemies.splice(i,1)
+     	bullet.dead=true
+     }
+	}
+	if(flip){
+		for(var i in enemies){
+			var enemie = enemies[i]
+			enemie.dir=enemie.dir*-1
+			enemie.x+=enemie.dir*2
+			enemie.y+=20
+		}
+	}
+	if(enemies.length<1){
+		level++
+		loadLevel(level)
+	}
+}
+function loadLevel(){
+	var enemyStartY = 60
+	var enemyStartX = 10
+	var enemyWidth = 50
+	
+	for(var i =1;i<41;i++){
+		enemies.push({x:enemyStartX, y: enemyStartY, w:enemyWidth, h:30, dir:level})
+		enemyStartX+=enemyWidth+25
+		if(i%10==0){
+			enemyStartX=10
+		enemyStartY+= 40
+		}
+	}
+
+	
+}
+function shoot(){
+	bullet.x=player.x+10
+	bullet.y=player.y
+	bullet.dead=false
+}
+loadLevel(level)
+setInterval(draw,20)
+
+onkeydown=function(e){
+	if(e.which==32 && bullet.dead){//spacebar
+		shoot()
+	}
+	else if(e.which==65){//a key
+		dir=-5
+	}
+	else if(e.which==70){//d key
+		dir=5
+	}
+}
+onkeyup=function(e){
+	if(e.which==65 || e.which==70){
+		dir=0
+	}
+}
+</script>

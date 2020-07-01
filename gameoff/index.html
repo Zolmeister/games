@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Github Game Off 2012</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body bgcolor="#E8E8E8">
+    	<div id="fb-root"></div>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+        <h1 align="center">The GitHub Game Off 2012  entries viewer</h1>
+        <h3 id="counter" align="center"></h3>
+        <div id="lovely-things-list">
+            <div id="forks-list">
+                <input size="50" class="search" />
+
+                <span class="sort btn" data-sort="name">Sort by name</span>
+                <span class="sort btn" data-sort="login">Sort by user</span>
+                <span class="sort btn" data-sort="created_at">Sort by creation date</span>
+                <span class="sort btn" data-sort="pushed_at">Sort by last push date</span>
+                <span class="sort btn" data-sort="likes">Sort by likes</span>
+                <br><br><hr>
+                <ul class="list"></ul>
+            </div>
+        </div>
+
+        <div style="display:none;">
+            <!-- A template element is needed when list is empty, TODO: needs a better solution -->
+            <li id="fork-item">
+                <h3 class="full_name"></h3>
+                <p class="avatar_url"></p>
+                <p class="homepage"></p>
+                <div class="votes"></div>
+                <p class="description"></p>
+
+                <p class="name" style="display:none;"></p>
+                <p class="login" style="display:none;"></p>
+                <p class="created_at" style="display:none;"></p>
+                <p class="pushed_at" style="display:none;"></p>
+                <p class="likes" style="display:none;"></p>
+            </li>
+        </div>
+		<img id="loadinggif" src="ajax-loader.gif">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+        <script src="js/vendor/list.min.js"></script>
+        <script src="js/vendor/list.paging.min.js"></script>
+        <script src="js/vendor/list.fuzzySearch.min.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+  window.fbAsyncInit = function() {
+    // Init the FB JS SDK
+    FB.init({
+      appId      : '269191293202688', // App ID from the App Dashboard
+      status     : true, // check the login status upon init?
+      cookie     : true, // set sessions cookies to allow your server to access the session?
+      xfbml      : true  // parse XFBML tags on this page?
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+  };
+
+  // Load the SDK's source Asynchronously
+  // Note that the debug version is being actively developed and might 
+  // contain some type checks that are overly strict. 
+  // Please report such bugs using the bugs tool.
+  (function(d, debug){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document, /*debug*/ false));
+</script>
+    </body>
+</html>

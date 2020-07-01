@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>The Original Snake</title>
+<style type="text/css">
+#box {
+	background-color: #FF0000;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	background-image: url(me.jpg);
+}
+#trail {
+	background-color: #0000FF;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	visibility: visible;
+}
+#placed {
+	background-color: #0000FF;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	visibility: visible;
+	background-image: url(u.jpg);
+}
+.food {
+	background-color: #00FF00;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 200px;
+	top: 200px;
+}
+#food {
+	background-color: #00FF00;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 200px;
+	top: 200px;
+	background-image: url(u.jpg);
+}
+</style>
+<script>
+//Author: Zoli Kahan http://schoolapedia.org
+score=0;
+height=window.innerHeight;
+width=window.innerWidth;
+rx=Math.floor(Math.random()*(height/26))*25;
+ry=Math.floor(Math.random()*(width/26))*25;
+colision=false;
+counter=0;
+cx=0;
+var trails = new Array();
+var theTail = new Array();
+snakeL=0;
+snakeM=3;
+paused=false;
+direction="right";
+x=50;
+y=50;
+var box;
+document.onkeydown=function(e){
+
+var e=window.event || e
+
+if(e.keyCode==65 || e.keyCode==37){ 
+direction="left";
+}
+if(e.keyCode==68 || e.keyCode==39){ 
+direction="right";
+}
+if(e.keyCode==87 || e.keyCode==38){ 
+direction="up";
+}
+if(e.keyCode==83 || e.keyCode==40){ 
+direction="down";
+}
+if(e.keyCode==80){
+if (paused==false) paused=true;
+else paused=false;
+}
+ //alert("CharCode value: "+e.charCode)
+ //alert("Character: "+String.fromCharCode(e.charCode))
+
+}
+function checkcolision(){
+	x2=x+"px";
+	y2=y+"px";
+	for (i=0;i<snakeM+cx;i++){
+		count=counter+snakeM+cx-i;
+		a=document.forms[count].style.top;
+		b=document.forms[count].style.left;
+		if (x2==a && y2==b){
+			colision=true;
+		}
+	}
+	
+	c=document.getElementById("food");
+	if (x2==c.style.top && y2==c.style.left){
+	trail(snakeL);
+	snakeM++;
+	score++;
+	rx=Math.floor(Math.random()*(height/26))*25;
+	ry=Math.floor(Math.random()*(width/26))*25;
+	cx++;
+	}
+	
+}
+function placeFood(myx,myy){
+
+c=document.getElementById("food");
+c.style.top=myx+"px";
+c.style.left=myy+"px";
+}
+function move(){
+if(y>=width-25){
+colision=true;
+}
+if(x>=height-25) {
+colision=true;
+}
+if(y<=-1){
+colision=true;
+}
+if(x<=-1) {
+colision=true;
+}
+document.getElementById("score").innerHTML="Score: "+score;
+placeFood(rx,ry);
+if (paused==false){
+	trail(snakeL);
+	snakeL++;
+	if (direction=="left"){
+	y-=25;
+	box.left=y+"px";
+	
+	}
+	if (direction=="right"){
+	y+=25;
+	box.left=y+"px";
+	
+	}
+	if (direction=="up"){
+	x-=25;
+	box.top=x+"px";
+	
+	}
+	if (direction=="down"){
+	x+=25;
+	box.top=x+"px";
+	
+	}
+	checkcolision();
+	if (colision==true) {
+	alert("dead");
+	paused=true;
+	}
+}
+}
+function snakeback(){
+document.forms[counter].id="null";
+trails.pop();
+theTail.pop();
+snakeL--;
+counter++;
+}
+function trail(snakeL){
+
+if (trails.length>snakeM){
+//alert(theTail[0].syle.top);
+snakeback();
+}
+//if (trails.lenth>snakeL){
+//trails.pop();
+//snakeL--;
+//}
+//alert("roar");
+	trails[snakeL] = document.createElement('form');
+	trails[snakeL].setAttribute('id', 'trail');
+		
+	document.body.appendChild(trails[snakeL]);
+	
+	theTail[snakeL]=document.getElementById('trail');
+	theTail[snakeL].style.top=x+"px";
+	theTail[snakeL].style.left=y+"px";
+	theTail[snakeL].id="placed";
+
+}
+function start(){
+box=document.getElementById("box").style;
+var start=self.setInterval("move();",150);
+}
+</script>
+</head>
+
+<body onload="start();">
+<div id="score">
+Score:
+</div>
+<div class="bodyy" id="box">
+</div>
+<div class="food" id="food">
+</div>
+</body>
+</html>

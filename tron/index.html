@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tron - 2 Player</title>
+<style type="text/css">
+#box {
+	background-color: #FF0000;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	
+}
+#box2 {
+	background-color: #FF0000;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 900px;
+	top: 500px;
+	
+}
+#trail {
+	background-color: #0000FF;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	visibility: visible;
+}
+#placed {
+	
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	visibility: visible;
+	
+}
+.food {
+	background-color: #00FF00;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 200px;
+	top: 200px;
+}
+#food {
+	background-color: #00FF00;
+	height: 25px;
+	width: 25px;
+	position: absolute;
+	left: 200px;
+	top: 200px;
+	
+}
+#block {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility:hidden;
+}
+#placed2 {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	visibility:hidden;
+}
+</style>
+<script>
+//Author: Zoli Kahan http://schoolapedia.org
+pic=5;
+height=window.innerHeight;
+width=window.innerWidth;
+xp2=height/2;
+yp2=Math.floor(width-width/10);
+x=height/2;
+y=Math.floor(width/10);
+while (yp2%25!=0){
+yp2--;
+}
+while (y%25!=0){
+y++;
+}
+rx=Math.floor(Math.random()*(height/26))*25;
+ry=Math.floor(Math.random()*(width/26))*25;
+colision=false;
+colision2=false;
+counter=0;
+cx=0;
+var trails = new Array();
+var theTail = new Array();
+snakeL=0;
+snakeL2=0;
+snakeM=3;
+paused=false;
+direction="right";
+direction2="left";
+x2=x+25;
+y2=y+25;
+var box;
+picc=4;
+x3=30;
+y3=30;
+snakeL1=0;
+trailss=new Array();
+theTails=new Array();
+function begin(){
+var startt=self.setInterval("buffer();",80);
+}
+function buffer(){
+if (paused==false){
+if (y3>=window.innerWidth-50){
+y3=0;
+x3+=5;
+}
+trailss[snakeL1] = document.createElement('div');
+	trailss[snakeL1].setAttribute('id', 'block');
+		
+	document.body.appendChild(trailss[snakeL1]);
+	
+	theTails[snakeL1]=document.getElementById('block');
+	theTails[snakeL1].innerHTML='<img src="https://graph.facebook.com/'+picc+'/picture?type=square" height=5 width=5 />';
+	
+	theTails[snakeL1].style.top=x3+"px";
+	theTails[snakeL1].style.left=y3+"px";
+	theTails[snakeL1].id="placed2";
+	picc++;
+	snakeL1++;
+	y3+=5;
+}
+}
+document.onkeydown=function(e){
+var e=window.event || e
+if(e.keyCode==65){ 
+direction="left";
+}
+if(e.keyCode==37){ 
+direction2="left";
+}
+if(e.keyCode==68){ 
+direction="right";
+}
+if(e.keyCode==39){ 
+direction2="right";
+}
+if(e.keyCode==87){ 
+direction="up";
+}
+if(e.keyCode==38){ 
+direction2="up";
+}
+if(e.keyCode==83){ 
+direction="down";
+}
+if(e.keyCode==40){ 
+direction2="down";
+}
+if(e.keyCode==80){
+if (paused==false) paused=true;
+else paused=false;
+}
+}
+
+function checkcolision(){
+	x2=x+"px";
+	y2=y+"px";
+	xp22=xp2+"px";
+	yp22=yp2+"px";
+	if (x2==xp22 && y2==yp22){
+	alert("tie");
+	paused=true;
+	}
+	for (i=0;i<snakeL;i++){
+		count=snakeL-i;
+		a=document.forms[count-1].style.top;
+		b=document.forms[count-1].style.left;
+		if (x2==a && y2==b){
+			colision=true;
+		}
+	}
+}
+function checkcolision2(){
+	x2=xp2+"px";
+	y2=yp2+"px";
+	x1=x+"px";
+	y1=y+"px";
+	xp22=xp2+"px";
+	yp22=yp2+"px";
+	if (x1==xp22 && y1==yp22){
+	alert("tie");
+	paused=true;
+	}
+	for (i=0;i<snakeL;i++){
+		count=snakeL-i;
+		a=document.forms[count-1].style.top;
+		b=document.forms[count-1].style.left;
+		if (x2==a && y2==b){
+			colision2=true;
+		}
+	}
+}
+function move(){
+if(y>=width-25){
+colision=true;
+}
+if(x>=height-25) {
+colision=true;
+}
+if(y<=-1){
+colision=true;
+}
+if(x<=-1) {
+colision=true;
+}
+if (paused==false){
+	trail(snakeL);
+	snakeL++;
+	if (direction=="left"){
+	y-=25;
+	box.left=y+"px";
+	}
+	if (direction=="right"){
+	y+=25;
+	box.left=y+"px";
+	}
+	if (direction=="up"){
+	x-=25;
+	box.top=x+"px";
+	}
+	if (direction=="down"){
+	x+=25;
+	box.top=x+"px";
+	}
+	checkcolision();
+	if (colision==true) {
+	alert("P2 Wins");
+	paused=true;
+	}
+}
+}
+function move2(){
+if(yp2>=width-25){
+colision2=true;
+}
+if(xp2>=height-25) {
+colision2=true;
+}
+if(yp2<=-1){
+colision2=true;
+}
+if(xp2<=-1) {
+colision2=true;
+}
+if (paused==false){
+	trail2(snakeL2);
+	snakeL++;
+	if (direction2=="left"){
+	yp2-=25;
+	box2.left=yp2+"px";
+	}
+	if (direction2=="right"){
+	yp2+=25;
+	box2.left=yp2+"px";
+	}
+	if (direction2=="up"){
+	xp2-=25;
+	box2.top=xp2+"px";
+	}
+	if (direction2=="down"){
+	xp2+=25;
+	box2.top=xp2+"px";
+	}
+	checkcolision2();
+	if (colision2==true) {
+	alert("P1 Wins");
+	paused=true;
+	}
+}
+}
+
+function trail(snakeL){
+	trails[snakeL] = document.createElement('form');
+	trails[snakeL].setAttribute('id', 'trail');	
+	document.body.appendChild(trails[snakeL]);
+	theTail[snakeL]=document.getElementById('trail');
+	theTail[snakeL].innerHTML='<img src="https://graph.facebook.com/'+pic+'/picture?type=square" height="25px" width="25px" />';
+	pic++;
+	theTail[snakeL].style.top=x+"px";
+	theTail[snakeL].style.left=y+"px";
+	theTail[snakeL].id="placed";
+}
+function trail2(snakeL2){
+trails[snakeL] = document.createElement('form');
+	trails[snakeL].setAttribute('id', 'trail');	
+	document.body.appendChild(trails[snakeL]);
+	theTail[snakeL]=document.getElementById('trail');
+	theTail[snakeL].innerHTML='<img src="https://graph.facebook.com/'+pic+'/picture?type=square" height="25px" width="25px" />';
+	//pic++;
+	theTail[snakeL].style.top=xp2+"px";
+	theTail[snakeL].style.left=yp2+"px";
+	theTail[snakeL].id="placed";
+}
+
+
+
+function start(){
+box=document.getElementById("box").style;
+box2=document.getElementById("box2").style;
+var start=self.setInterval("move();",100);
+var start2=self.setInterval("move2();",100);
+box.top=x+"px";
+box.left=y+"px";
+box2.top=xp2+"px";
+box2.left=yp2+"px";
+}
+</script>
+</head>
+
+<body onload="start();begin();">
+<div class="bodyy" id="box">
+<img src="https://graph.facebook.com/4/picture?type=square" height="25px" width="25px" />
+</div>
+<div class="bodyy" id="box2">
+<img src="https://graph.facebook.com/4/picture?type=square" height="25px" width="25px" />
+</div>
+<!--<div class="food" id="food">
+<img src="http://graph.facebook.com/4/picture?type=square" height="25px" width="25px" />
+</div>-->
+</body>
+</html>
