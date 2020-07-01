@@ -8,6 +8,8 @@ function moveenemy(){
 		as=times*veloc;
 	bs=amp*Math.sin(freq*times*2*Math.PI);
 		a=document.getElementById(type+x).style;
+		a.posLeft = document.getElementById(type+x).offsetLeft
+		a.posTop = document.getElementById(type+x).offsetTop
 		a.left=a.posLeft-10+"px";
 		a.top=bs+a.posTop+"px";
 		if(a.posLeft<0){
@@ -18,6 +20,8 @@ function moveenemy(){
 	type="ship2";
 	for (x=0;x<numenemies[1];x++){
 		a=document.getElementById(type+x).style;
+		a.posLeft = document.getElementById(type+x).offsetLeft
+		a.posTop = document.getElementById(type+x).offsetTop
 		a.left=a.posLeft+8+"px";
 		if(a.posLeft>width){
 			removeEnemy(type,type+x,x);
@@ -26,6 +30,8 @@ function moveenemy(){
 	type="ship3";
 	for (x=0;x<numenemies[2];x++){
 		a=document.getElementById(type+x).style;
+		a.posLeft = document.getElementById(type+x).offsetLeft
+		a.posTop = document.getElementById(type+x).offsetTop
 		dist=Math.floor(width-width/6)-40;
 		if (a.posLeft > dist+40){
 		a.left=a.posLeft-3+"px";
@@ -39,7 +45,7 @@ function moveenemy(){
 		if (a.posLeft >= dist+4 && a.posLeft < dist+6){
 			shootE("ship3",x);
 			}
-		
+
 		if(a.posTop<0){
 			removeEnemy(type,type+x,x);
 		}
@@ -47,6 +53,8 @@ function moveenemy(){
 	type="boss1";
 	if(boss1==true){
 	a=document.getElementById(type).style;
+	a.posLeft = document.getElementById(type).offsetLeft
+	a.posTop = document.getElementById(type).offsetTop
 	if (a.posLeft>=width-200){
 	a.left=a.posLeft-5+"px";
 	}

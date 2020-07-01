@@ -4,8 +4,12 @@ function checkcolision(){
 	colisionenemy("ship2");
 	colisionenemy("ship3");
 	for (x=0;x<numbullets2;x++){
-		a=document.getElementById("bulletE"+x).style;	
+		a=document.getElementById("bulletE"+x).style;
 		b=document.getElementById("dude").style;
+		a.posLeft = document.getElementById("bulletE"+x).offsetLeft
+		a.posTop = document.getElementById("bulletE"+x).offsetTop
+		b.posLeft = document.getElementById("dude").offsetLeft
+		b.posTop = document.getElementById("dude").offsetTop
 		if(a.posLeft<=b.posLeft+dudewidth && a.posLeft>=b.posLeft && a.posTop<=b.posTop+dudeheight && a.posTop+bulletheight>=b.posTop){
 			colision=true;
 			x=numbullets2;
@@ -18,8 +22,12 @@ function checkcolision(){
 	colision=true;
 	}
 	for (x=0;x<numbullets;x++){
-	a=document.getElementById("bullet"+x).style;	
+	a=document.getElementById("bullet"+x).style;
 	b=document.getElementById(type).style;
+	a.posLeft = document.getElementById("bullet"+x).offsetLeft
+	a.posTop = document.getElementById("bullet"+x).offsetTop
+	b.posLeft = document.getElementById(type).offsetLeft
+	b.posTop = document.getElementById(type).offsetTop
 	if(a.posLeft<=b.posLeft && a.posLeft+bulletwidth>=b.posLeft && a.posTop<=b.posTop+boss1height && a.posTop+bulletheight>=b.posTop){
 		removeBullet("bullet"+x,x);
 		boss1health--;
@@ -31,8 +39,8 @@ function checkcolision(){
 	}
 	}
 	}
-	
-	
+
+
 	if(dudex>=width-25){
 		colision=true;
 		}
@@ -63,21 +71,25 @@ function colisionenemy(type){
 		shipheight=ship3height;
 		}
 	for (z=0;z<numenemies[y];z++){
-		
+
 		c=document.getElementById(type+z).style;
 		if(dudex+dudewidth/2>=c.posLeft && dudex-dudewidth/2<=c.posLeft+shipwidth && dudey+dudeheight/2>=c.posTop && dudey-dudeheight/2<=c.posTop+shipheight){
 		colision=true;
 		}
 		for (x=0;x<numbullets;x++){
-		a=document.getElementById("bullet"+x).style;	
+		a=document.getElementById("bullet"+x).style;
 		b=document.getElementById(type+z).style;
+		a.posLeft = document.getElementById("bullet"+x).offsetLeft
+		a.posTop = document.getElementById("bullet"+x).offsetTop
+		b.posLeft = document.getElementById(type+z).offsetLeft
+		b.posTop = document.getElementById(type+z).offsetTop
 		if(a.posLeft<=b.posLeft && a.posLeft+bulletwidth>=b.posLeft && a.posTop<=b.posTop+shipheight && a.posTop+bulletheight>=b.posTop){
 			removeBullet("bullet"+x,x);
 			removeEnemy(type,type+z,z);
 			score++;
 		}
 		}
-		
+
 	}
-	
+
 }

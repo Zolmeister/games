@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Platypus</title>
+<script src="vars.js"></script>
+<script src="main-p.js"></script>
+<script src="bullets.js"></script>
+<script src="events.js"></script>
+<script src="colision.js"></script>
+<script src="levels.js"></script>
+<script src="enemies.js"></script>
+<style type="text/css">
+<!--
+#dude {
+	height: 50px;
+	width: 58px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(dude.png);
+}
+.bullet {
+	height: 11px;
+	width: 50px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(bullet.png);
+}
+.bulletE {
+	height: 11px;
+	width: 50px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(bulletE.png);
+}
+.ship1 {
+	height: 50px;
+	width: 58px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(ship1.png);
+}
+.ship2 {
+	height: 100px;
+	width: 122px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(ship2%20copy.png);
+}
+.ship3 {
+	height: 75px;
+	width: 50px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(ship3%20copy.png);
+}
+.boss1 {
+	height: 500px;
+	width: 200px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-image: url(boss1%20copy.png);
+}
+-->
+</style>
+</head>
+<body onLoad="start()">
+<input type="button" value="New Game" onClick="window.location.reload();">
+<div id="score"></div>
+<div id="dude" style="cursor:url('cursor.cur');"> </div> 
+<div id="enemies"> </div> 
+<div id="bullets"></div>
+</body>
+</html>

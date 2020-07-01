@@ -11,7 +11,7 @@ function addBullet(x,y) {
 	 movethis.left=x+'px';
 	 numbullets++;
 }
-	 
+
 function removeBullet(divNum,x) {
 	  var d = document.getElementById('bullets');
 	  var olddiv = document.getElementById(divNum);
@@ -20,11 +20,12 @@ function removeBullet(divNum,x) {
 		document.getElementById("bullet"+i).id="bullet"+(i-1);
 	}
 	  numbullets--;
-	  
+
 }
 function movebullet(){
 	for (x=0;x<numbullets;x++){
 	a=document.getElementById("bullet"+x).style;
+	a.posLeft = document.getElementById("bullet"+x).offsetLeft
 	a.left=a.posLeft+bulletspeed+"px";
 	if(a.posLeft>width){
 		removeBullet("bullet"+x,x);
@@ -40,20 +41,20 @@ function addBulletE(type,num) {
 	 ni.appendChild(newdiv);
 	 movethis=document.getElementById(divIdName).style;
 	 if (type=="boss1"){
-	 a=document.getElementById(type).style; 
+	 a=document.getElementById(type);
 	 y=dudey;
 	 }
 	 else {
-		 a=document.getElementById(type+num).style;
-		 y=a.posTop;
+		 a=document.getElementById(type+num);
+		 y=a.offsetTop;
 	 }
-	
-	 x=a.posLeft;
+
+	 x=a.offsetLeft;
 	 movethis.top=y+'px';
 	 movethis.left=x+'px';
 	 numbullets2++;
 }
-	 
+
 function removeBulletE(divNum,x) {
 	  var d = document.getElementById('bullets');
 	  var olddiv = document.getElementById(divNum);
@@ -62,11 +63,13 @@ function removeBulletE(divNum,x) {
 		document.getElementById("bulletE"+i).id="bulletE"+(i-1);
 	}
 	  numbullets2--;
-	  
+
 }
 function movebulletE(){
 	for (x=0;x<numbullets2;x++){
 	a=document.getElementById("bulletE"+x).style;
+	a.posLeft = document.getElementById("bulletE"+x).offsetLeft
+	a.posTop = document.getElementById("bulletE"+x).offsetTop
 	if (dudey>a.posTop){
 	a.top=a.posTop+10+"px";
 	}
